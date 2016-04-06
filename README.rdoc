@@ -1,28 +1,32 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Write a web application in Rails that models libraries and books. A user should be able to interact with it to accomplish seven goals:
+ * Create libraries
+ * Create books
+ * Add different books to different libraries
+ * Find out if a library has a certain book, given the book's title
+ * Find out if a library has a certain book, given its ISBN number
+ * Find out if a library can get a book (by title or ISBN) through interlibrary loan from any of the other libraries you created
+ * Find out what a library's most popular book is (where popularity is measured by the number of times a user asked for that book;
+    different libraries should have different answers to this question)
 
-Things you may want to cover:
+    Library -
+        Name
 
-* Ruby version
+        has_many books
+        has_many records
 
-* System dependencies
+    Book -
+        Title
+        ISBN Number
 
-* Configuration
+        belongs_to library
 
-* Database creation
+    Record -
+        library_id
+        book_id
+        num_rentals
 
-* Database initialization
+        belongs_to library
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
