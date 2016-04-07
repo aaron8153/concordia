@@ -10,6 +10,9 @@ Write a web application in Rails that models libraries and books. A user should 
  * Find out what a library's most popular book is (where popularity is measured by the number of times a user asked for that book;
     different libraries should have different answers to this question)
 
+    User -
+        has_many books
+
     Library -
         Name
 
@@ -17,16 +20,20 @@ Write a web application in Rails that models libraries and books. A user should 
         has_many records
 
     Book -
-        Title
+        Name
         ISBN Number
 
         belongs_to library
+        belongs_to user
+
 
     Record -
-        library_id
-        book_id
         num_rentals
 
+        has_one book
         belongs_to library
+
+
+
 
 <tt>rake doc:app</tt>.

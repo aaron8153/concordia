@@ -1,2 +1,17 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>New Library</h1>
+
+<%= render 'libraries/form' %>
+
+<h1>New Book</h1>
+<p>New books are placed into the current user's inventory.</p>
+
+<%= render 'books/form' %>
+<% @libraries.each do |lib| %>
+    <%= link_to lib.name, library_path(lib) %>
+
+    <%= link_to 'Edit', edit_library_path(lib) %>
+    <% lib.books.each do |book| %>
+        <% breakpoint = true %>
+    <% end %>
+    <br>
+<% end %>

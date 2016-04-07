@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  num_rentals: 1
+  library_id: 
+  book_id: 
+
+two:
+  num_rentals: 1
+  library_id: 
+  book_id: 

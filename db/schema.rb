@@ -11,7 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405223555) do
+ActiveRecord::Schema.define(version: 20160407192449) do
+
+  create_table "books", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "isbn",       limit: 255
+    t.integer  "user_id",    limit: 4
+    t.integer  "library_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "books", ["library_id"], name: "index_books_on_library_id", using: :btree
+  add_index "books", ["user_id"], name: "index_books_on_user_id", using: :btree
+
+  create_table "libraries", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "records", force: :cascade do |t|
+    t.integer  "num_rentals", limit: 4, default: 0
+    t.integer  "library_id",  limit: 4
+    t.integer  "book_id",     limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "records", ["book_id"], name: "index_records_on_book_id", using: :btree
+  add_index "records", ["library_id"], name: "index_records_on_library_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -31,4 +60,8 @@ ActiveRecord::Schema.define(version: 20160405223555) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "books", "libraries"
+  add_foreign_key "books", "users"
+  add_foreign_key "records", "books"
+  add_foreign_key "records", "libraries"
 end
