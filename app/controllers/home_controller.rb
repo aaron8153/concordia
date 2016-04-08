@@ -28,11 +28,28 @@ class HomeController < ApplicationController
     render "index"
   end
 
+  def check_in
+    b = Book.find(params[:id])
+
+    if b.user != nil
+
+      #Remove User from Book
+      b.user = nil
+
+      #Add Book to Library
+      l = Library.find(params[:library_id])
+      b.library = l
+      b.save
+    end
+    render "index"
+  end
+
   private
   def new_init
     @lib = Library.new
     @book = Book.new
     @libraries = Library.all
+    @user_inv = Book.where(:user_id => current_user.id)
   end
   def library_params
     params.require(:library).permit(:name)

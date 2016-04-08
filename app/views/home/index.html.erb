@@ -6,12 +6,34 @@
 <p>New books are placed into the current user's inventory.</p>
 
 <%= render 'books/form' %>
+
+<h1>User Inventory</h1>
+<% @user_inv.each do |inv| %>
+    <p>
+      <%= "Name: " + (inv.name.nil? ? "" : inv.name) + " Isbn:" + (inv.isbn.nil? ? "" : inv.isbn) %>
+      <%= form_tag( controller: "home", action: "check_in", id: inv.id ) do  %>
+          <%= select_tag 'library_id', options_for_select(@libraries.collect{ |l| [l.name, l.id] }) %>
+
+          <%= submit_tag "Check In"%>
+      <% end %>
+    </p>
+    <br>
+
+<% end %>
+
+<h1>Libraries</h1>
 <% @libraries.each do |lib| %>
     <%= link_to lib.name, library_path(lib) %>
 
     <%= link_to 'Edit', edit_library_path(lib) %>
+    <br>
     <% lib.books.each do |book| %>
-        <% breakpoint = true %>
+        <%= "Name: " + (book.name.nil? ? "" : book.name) + " Isbn:" + (book.isbn.nil? ? "" : book.isbn) %>
+        <%= form_tag( controller: "home", action: "check_out", id: book.id ) do  %>
+
+            <%= submit_tag "Check Out"%>
+        <% end %>
+        <br>
     <% end %>
     <br>
 <% end %>
