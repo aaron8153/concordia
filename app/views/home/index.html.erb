@@ -1,39 +1,92 @@
-<h1>New Library</h1>
+<div class="row">
+    <div class="col-md-4">
+      <h1>New Library</h1>
 
-<%= render 'libraries/form' %>
+      <%= render 'libraries/form' %>
+    </div>
+    <div class="col-md-4">
+      <h1>New Book</h1>
+      <p>New books are placed into the current user's inventory.</p>
 
-<h1>New Book</h1>
-<p>New books are placed into the current user's inventory.</p>
+      <%= render 'books/form' %>
+    </div>
+    <div class="col-md-4">
+      <h1>User Inventory</h1>
+      <% @user_inv.each do |book| %>
+          <p>
+            <%= "Name: " + (book.name.nil? ? "" : book.name) + " Isbn:" + (book.isbn.nil? ? "" : book.isbn) %>
+            <%= form_tag( controller: "home", action: "check_in", id: book.id ) do  %>
+                <%= select_tag 'library_id', options_for_select(@libraries.collect{ |l| [l.name, l.id] }) %>
 
-<%= render 'books/form' %>
+                <%= submit_tag "Check In", class: "btn btn-default"%>
+                <%= link_to 'Destroy', book, class: "btn btn-default", method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
+          </p>
+          <br>
 
-<h1>User Inventory</h1>
-<% @user_inv.each do |inv| %>
-    <p>
-      <%= "Name: " + (inv.name.nil? ? "" : inv.name) + " Isbn:" + (inv.isbn.nil? ? "" : inv.isbn) %>
-      <%= form_tag( controller: "home", action: "check_in", id: inv.id ) do  %>
-          <%= select_tag 'library_id', options_for_select(@libraries.collect{ |l| [l.name, l.id] }) %>
-
-          <%= submit_tag "Check In"%>
       <% end %>
-    </p>
-    <br>
+    </div>
+</div>
 
-<% end %>
-
-<h1>Libraries</h1>
-<% @libraries.each do |lib| %>
-    <%= link_to lib.name, library_path(lib) %>
-
-    <%= link_to 'Edit', edit_library_path(lib) %>
-    <br>
-    <% lib.books.each do |book| %>
-        <%= "Name: " + (book.name.nil? ? "" : book.name) + " Isbn:" + (book.isbn.nil? ? "" : book.isbn) %>
-        <%= form_tag( controller: "home", action: "check_out", id: book.id ) do  %>
-
-            <%= submit_tag "Check Out"%>
+<div class="row">
+  <div class="col-md-12">
+    <h1>Libraries</h1>
+    <div class="tabbable tabs-left">
+      <ul class="nav nav-tabs">
+        <% @libraries.each_with_index do |l, index| %>
+            <li class="<%= if index == 0 then "active" end %>">
+              <a href="#lib-<%= l.id %>" data-toggle="tab"><%= l.name %></a>
+            </li>
         <% end %>
-        <br>
-    <% end %>
-    <br>
-<% end %>
+      </ul>
+      <div class="tab-content add-border">
+        <% @libraries.each_with_index do |l, index| %>
+            <div class="tab-pane <%= if index == 0 then "active" end %>" id="lib-<%= l.id %>">
+              <div class="padding-top-15">
+                <p class="padding-left-8">
+                  <%= link_to l.name, library_path(l) %>
+
+                  <%= link_to 'Edit', edit_library_path(l) %>
+                </p>
+                <table class="table table-striped">
+                    <% popular = l.records.order(num_rentals: :desc).first %>
+                    <% if popular != nil %>
+                        <% b = Book.find(popular.book_id) %>
+                        <caption class="padding-left-8">The most popular book at this library is: "<%= b.name %>" having been checked out "<%= popular.num_rentals %>" times.</caption>
+                    <% else %>
+                        <caption class="padding-left-8">No books have been rented from this library yet.</caption>
+                    <% end %>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Isbn Number</th>
+                            <th>Number of Rentals</th>
+                            <th>Check Out</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% l.books.each do |book| %>
+                            <% r = book.records.where(library: l).first %>
+                            <tr>
+                                <td class="vert-align"><%= book.name.nil? ? "" : book.name %></td>
+                                <td class="vert-align"><%= book.isbn.nil? ? "" : book.isbn %></td>
+                                <td class="vert-align"><%= if !r.nil? then r.num_rentals else "0" end%></td>
+                                <td>
+                                    <%= form_tag( controller: "home", action: "check_out", id: book.id ) do  %>
+                                        <%= submit_tag "Check Out", class: "btn btn-default"%>
+                                    <% end %>
+                                </td>
+                                <td><%= link_to 'Delete', book, class: "btn btn-default", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+              </div>
+            </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
