@@ -25,6 +25,7 @@ Write a web application in Rails that models libraries and books. A user should 
 
         belongs_to library
         belongs_to user
+        has_many records
 
 
     Record -
@@ -33,7 +34,5 @@ Write a web application in Rails that models libraries and books. A user should 
         has_one book
         belongs_to library
 
-
-
-
-<tt>rake doc:app</tt>.
+ Create a new user by signing up. Add libraries. Add books, they will go into user inventory. Transfer the books to libraries.
+ Check books in/out to test popularity. Go to search page. Test all search features. Transfer to and from libraries/users. Test Delete.
