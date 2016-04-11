@@ -1,0 +1,50 @@
+<%# app/views/books/_list.html.erb %>
+<div id="filterrific_results">
+
+  <div>
+    <%= page_entries_info books %>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+        <tr>
+          <th>Name</th>
+          <th>Isbn Number</th>
+          <th>Current Library/User</th>
+          <th>Transfer to Library</th>
+          <th>Transfer to User</th>
+          <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% books.each do |book| %>
+            <%
+               l = book.library
+               u = book.user
+            %>
+            <tr>
+              <td class="vert-align"><%= book.name.nil? ? "" : book.name %></td>
+              <td class="vert-align"><%= book.isbn.nil? ? "" : book.isbn %></td>
+              <td class="vert-align"><%= if !l.nil? then l.name elsif !u.nil? then u.email else "Nil" end%></td>
+              <td>
+                <%= form_tag( controller: "home", action: "transfer_to_library", id: book.id ) do  %>
+                    <%= select_tag 'library_id', options_for_select(@libraries.collect{ |l| [l.name, l.id] }) %>
+                    <%= submit_tag "Transfer", class: "btn btn-default"%>
+                <% end %>
+              </td>
+              <td>
+                <%= form_tag( controller: "home", action: "transfer_to_user", id: book.id ) do  %>
+                    <%= select_tag 'user_id', options_for_select(@users.collect{ |us| [us.email, us.id] }) %>
+                    <%= submit_tag "Transfer", class: "btn btn-default"%>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to 'Delete', book, class: "btn btn-default", method: :delete, data: { confirm: 'Are you sure?' } %>
+              </td>
+            </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= will_paginate books %>

@@ -45,6 +45,9 @@ group :development do
   gem 'spring'
 end
 gem 'bootstrap-sass'
+gem 'filterrific'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 
 gem 'devise'
 

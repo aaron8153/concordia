@@ -3,6 +3,7 @@ class HomeController < ApplicationController
 
   def index
     #add pagination
+    @active = "home"
   end
 
   def check_out
@@ -25,7 +26,7 @@ class HomeController < ApplicationController
       b.user = current_user
       b.save
     end
-    render "index"
+    redirect_to root_path
   end
 
   def check_in
@@ -41,7 +42,48 @@ class HomeController < ApplicationController
       b.library = l
       b.save
     end
-    render "index"
+    redirect_to root_path
+  end
+
+  def search
+    @users = User.all
+    @filterrific = initialize_filterrific(
+        Book,
+        params[:filterrific],
+        select_options: {
+            sorted_by: Book.options_for_sorted_by,
+            with_library_id: Library.options_for_select,
+            with_user_id: User.options_for_select
+        },
+    ) or return
+    @books = @filterrific.find.page(params[:page])
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def transfer_to_library
+    b = Book.find(params[:id])
+
+    b.user = nil
+
+    b.library = Library.find(params[:library_id])
+
+    b.save
+    redirect_to search_path
+  end
+
+  def transfer_to_user
+    b = Book.find(params[:id])
+
+    b.library = nil
+
+    b.user = User.find(params[:user_id])
+
+    b.save
+    redirect_to search_path
   end
 
   private

@@ -4,4 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :books
+
+  def self.options_for_select
+    order('LOWER(email)').map { |e| [e.email, e.id] }
+  end
 end

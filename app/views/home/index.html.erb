@@ -13,15 +13,24 @@
     <div class="col-md-4">
       <h1>User Inventory</h1>
       <% @user_inv.each do |book| %>
-          <p>
-            <%= "Name: " + (book.name.nil? ? "" : book.name) + " Isbn:" + (book.isbn.nil? ? "" : book.isbn) %>
+          <div class="row">
+            <div class="col-md-6">
+                <%= "Name: " + (book.name.nil? ? "" : book.name) %>
+            </div>
+            <div class="col-md-6">
+              <%= " Isbn:" + (book.isbn.nil? ? "" : book.isbn) %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
             <%= form_tag( controller: "home", action: "check_in", id: book.id ) do  %>
                 <%= select_tag 'library_id', options_for_select(@libraries.collect{ |l| [l.name, l.id] }) %>
 
                 <%= submit_tag "Check In", class: "btn btn-default"%>
                 <%= link_to 'Destroy', book, class: "btn btn-default", method: :delete, data: { confirm: 'Are you sure?' } %>
             <% end %>
-          </p>
+            </div>
+          </div>
           <br>
 
       <% end %>
@@ -43,16 +52,12 @@
         <% @libraries.each_with_index do |l, index| %>
             <div class="tab-pane <%= if index == 0 then "active" end %>" id="lib-<%= l.id %>">
               <div class="padding-top-15">
-                <p class="padding-left-8">
-                  <%= link_to l.name, library_path(l) %>
-
-                  <%= link_to 'Edit', edit_library_path(l) %>
-                </p>
+                <p class="padding-right-8 pull-right"><%= link_to 'Edit Library', edit_library_path(l) %></p>
                 <table class="table table-striped">
                     <% popular = l.records.order(num_rentals: :desc).first %>
                     <% if popular != nil %>
                         <% b = Book.find(popular.book_id) %>
-                        <caption class="padding-left-8">The most popular book at this library is: "<%= b.name %>" having been checked out "<%= popular.num_rentals %>" times.</caption>
+                        <caption class="padding-left-8">The most popular book at this library is: <b><%= b.name %></b> having been checked out <b><%= popular.num_rentals %></b> times.</caption>
                     <% else %>
                         <caption class="padding-left-8">No books have been rented from this library yet.</caption>
                     <% end %>
