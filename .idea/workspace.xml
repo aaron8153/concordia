@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f521253b-e931-43b5-997f-e62d5548c441" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.rdoc" afterPath="$PROJECT_DIR$/README.rdoc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/book.rb" afterPath="$PROJECT_DIR$/app/models/book.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="concordia.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,11 +58,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.rdoc" pinned="false" current-in-tab="true">
+      <file leaf-file-name="README.rdoc" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.rdoc">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8626943">
-              <caret line="37" column="135" selection-start-line="37" selection-start-column="135" selection-end-line="37" selection-end-column="135" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="19" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="book.rb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/models/book.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.27979276">
+              <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -98,11 +109,11 @@
         <option value="$PROJECT_DIR$/app/views/books/_list.html.erb" />
         <option value="$PROJECT_DIR$/app/views/home/search.js.erb" />
         <option value="$PROJECT_DIR$/app/assets/javascripts/application.js" />
-        <option value="$PROJECT_DIR$/app/models/book.rb" />
         <option value="$PROJECT_DIR$/app/models/user.rb" />
         <option value="$PROJECT_DIR$/app/controllers/home_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/home/search.html.erb" />
         <option value="$PROJECT_DIR$/README.rdoc" />
+        <option value="$PROJECT_DIR$/app/models/book.rb" />
       </list>
     </option>
   </component>
@@ -848,14 +859,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/book.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/record.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -882,8 +885,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.rdoc">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8626943">
-          <caret line="37" column="135" selection-start-line="37" selection-start-column="135" selection-end-line="37" selection-end-column="135" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="19" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/book.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27979276">
+          <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
           <folding />
         </state>
       </provider>

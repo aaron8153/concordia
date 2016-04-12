@@ -16,18 +16,23 @@ class Book < ActiveRecord::Base
   scope :search_query, lambda { |query|
 
      return nil  if query.blank?
-
+     terms = nil
      # condition query, parse into individual keywords
-     terms = query.downcase.split(/\s+/)
+     if !query.is_a?(Fixnum)
+      terms = query.downcase.split(/\s+/)
+
 
      # replace "*" with "%" for wildcard searches,
      # append '%', remove duplicate '%'s
-     terms = terms.map { |e|
-       (e.gsub('*', '%') + '%').gsub(/%+/, '%')
-     }
+      terms = terms.map { |e|
+        (e.gsub('*', '%') + '%').gsub(/%+/, '%')
+      }
      # configure number of OR conditions for provision
      # of interpolation arguments. Adjust this if you
      # change the number of OR conditions.
+     else
+       terms = [query]
+     end
      num_or_conds = 2
      where(
          terms.map { |term|
